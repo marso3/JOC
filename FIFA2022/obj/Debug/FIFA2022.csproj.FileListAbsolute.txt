@@ -1,0 +1,2 @@
+D:\ARA SI 2\PROJECTEJOCCONSOLA\FIFA2022\obj\Debug\FIFA2022.csproj.AssemblyReference.cache
+D:\ARA SI 2\PROJECTEJOCCONSOLA\FIFA2022\obj\Debug\FIFA2022.csproj.CoreCompileInputs.cache
