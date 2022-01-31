@@ -38,6 +38,9 @@ namespace FIFA2022
             nom = noms[random.Next(0, 99)];
             cognom = noms[random.Next(0, 99)];
             salari = random.Next(0, 100000) * 1000;
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            dataNaixement = start.AddDays(random.Next(range));
         }
         public Persona(string nom, string cognom)
         {
@@ -51,5 +54,6 @@ namespace FIFA2022
             this.salari = salari;
             this.dataNaixement = dataNaixement;
         }
+
     }
 }

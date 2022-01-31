@@ -35,7 +35,6 @@ namespace FIFA2022
             var justNumbers = new String(guid.ToString().Where(Char.IsDigit).ToArray());
             var seed = int.Parse(justNumbers.Substring(0, 4));
             Random random = new Random(seed);
-            valor = random.Next(0, 200000) * 1000;
             int valor0a100 = random.Next(0, 100);
             int boost1 = random.Next(1, 6);
             int boost2 = random.Next(1, 6);
@@ -78,6 +77,7 @@ namespace FIFA2022
             }
             KeepValuesInRange();
             SetRatingAndPosition();
+            valor = CalculateValue();
         }
         public Jugador(string nom, string cognom, double valor, double salari, DateTime datanaix) : base(nom, cognom, salari, datanaix)
         {
@@ -116,6 +116,7 @@ namespace FIFA2022
         {
             string stringJugador = "Nom:" + base.Nom +
                 "\nCognom:" + base.Cognom +
+                "\nEdat: " + Convert.ToString(CalculateAge(base.DataNaixement)) +
                 "\nValor:" + valor +
                 "\nSalari:" + base.Salari +
                 "\nPosició:" + posicio +
@@ -232,21 +233,19 @@ namespace FIFA2022
             if (forca >= 100) forca = 99;
             else if (forca < 0) forca = 0;
         }
-        void CalculateValue()
+        double CalculateValue()
         {
-            var guid = Guid.NewGuid();
-            var justNumbers = new String(guid.ToString().Where(Char.IsDigit).ToArray());
-            var seed = int.Parse(justNumbers.Substring(0, 4));
-            Random random = new Random(seed);
             int edat = CalculateAge(base.DataNaixement);
             double multiplicadorEdat = 0;
             bool bbreak = false;
+            double formula = (rating / 30 + Math.Pow(1.12, rating - 40) / 5) * 1000000;
+            //multiplica el valor del jugador per 0.X segons l'edat descendentment
             for (int i = 40; i > 0 && !bbreak; i--)
             {
                 if (i == edat) bbreak = true;
                 multiplicadorEdat += 0.1;
             }
-            valor = rating * 1000000 * multiplicadorEdat;
+            return Math.Round(formula * multiplicadorEdat, 2);
         }
         int CalculateAge(DateTime data)
         {
